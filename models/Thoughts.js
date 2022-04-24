@@ -1,4 +1,4 @@
-// Require Mongoos and Moment
+// Require Mongoose/Moment
 const { Schema, model, Types } = require('mongoose');
 const moment = require('moment');
 
@@ -51,7 +51,7 @@ const ThoughtsSchema = new Schema(
         type: String,
         required: true
     },
-    // Use ReactionsSchema to validate data
+    // validate data with reaction schema
     reactions: [ReactionsSchema]
     },
     {
@@ -63,13 +63,13 @@ const ThoughtsSchema = new Schema(
     }
 )
 
-// get total count of reactions
+// reaction counter
 ThoughtsSchema.virtual('reactionCount').get(function() {
     return this.reactions.length;
 });
 
-// create the Thoughts model using the Thoughts Schema
+// createThoughts model
 const Thoughts = model('Thoughts', ThoughtsSchema);
 
-// Export Thoughts Module
+
 module.exports = Thoughts;

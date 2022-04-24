@@ -14,9 +14,9 @@ const usersController = {
     // Get All Users
     getAllUsers(req, res) {
         Users.find({})
-        // populate users thoughts
+        // populate thoughts
         .populate({path: 'thoughts', select: '-__v'})
-        // populate user friends
+        // populate friends
         .populate({path: 'friends', select: '-__v'})
         .select('-__v')
         // .sort({_id: -1})
@@ -52,7 +52,7 @@ const usersController = {
         Users.findOneAndUpdate({_id: params.id}, body, {new: true, runValidators: true})
         .then(dbUsersData => {
             if(!dbUsersData) {
-                res.status(404).json({message: 'No User with this particular ID!'});
+                res.status(404).json({message: 'No User with this ID!'});
                 return;
             }
             res.json(dbUserData);
@@ -64,7 +64,7 @@ const usersController = {
         Users.findOneAndDelete({_id: params.id})
         .then(dbUsersData => {
             if(!dbUsersData) {
-                res.status(404).json({message: 'No User with this particular ID!'});
+                res.status(404).json({message: 'No User with this ID!'});
                 return;
             }
             res.json(dbUsersData);
